@@ -1,11 +1,36 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <title>Title of the document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voice Input Example</title>
 </head>
-
 <body>
-  <h1>This is a heading</h1>
-  <p>This is a paragraph.</p>
-</body>
+  <input type="text" id="voiceInput" placeholder="Speak here...">
+  <button onclick="startRecognition()">Start Recognition</button>
+  <button onclick="stopRecognition()">Stop Recognition</button>
 
+  <script>
+    let recognition;
+
+    function startRecognition() {
+      recognition = new window.SpeechRecognition();
+      recognition.lang = 'en-US';
+
+      recognition.onresult = function(event) {
+        const command = event.results[0][0].transcript;
+        document.getElementById('voiceInput').value = command;
+      };
+
+      recognition.start();
+    }
+
+    function stopRecognition() {
+      if (recognition) {
+        recognition.stop();
+      }
+    }
+  </script>
+</body>
 </html>
+
